@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="204dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -11,7 +10,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:background="#454545"
+        android:background="#898989"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.utils.widget.ImageFilterView

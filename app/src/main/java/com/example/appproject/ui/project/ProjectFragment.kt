@@ -28,18 +28,19 @@ class ProjectFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        projectViewModel.shareProjectData.observe(requireActivity(), Observer {
-            projectList = it.data.datas
-        })
         val projectSwipeRefreshLayout = view.findViewById<SwipeRefreshLayout>(R.id.project_refresh)
         val projectRecyclerView = view.findViewById<RecyclerView>(R.id.project_recycler_view)
+        projectViewModel.shareProjectData.observe(requireActivity(), Observer {
+            projectList = it.data.datas
+            projectRecyclerView.adapter = ProjectAdapter(requireActivity(), projectList)
+        })
+        projectRecyclerView.layoutManager = LinearLayoutManager(requireActivity())
         projectSwipeRefreshLayout.setOnRefreshListener {
             projectViewModel.onRefresh()
             projectSwipeRefreshLayout.isRefreshing = false
-            projectRecyclerView.adapter = ProjectAdapter(requireActivity(), projectList)
+
         }
-        projectRecyclerView.layoutManager = LinearLayoutManager(requireActivity())
-        projectRecyclerView.adapter = ProjectAdapter(requireActivity(), projectList)
+
 
 
         super.onViewCreated(view, savedInstanceState)
