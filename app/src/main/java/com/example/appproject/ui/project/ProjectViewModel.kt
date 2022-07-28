@@ -31,11 +31,8 @@ class ProjectViewModel : ViewModel() {
         val link: String
     )
 
-    private val projectResponse : MutableLiveData<ProjectResponse> by lazy{
-        MutableLiveData<ProjectResponse>().also {
-            projectResponse.value = getResponse(MainApplication.PRJURL)
-        }
-    }
+    private val projectResponse = MutableLiveData<ProjectResponse>()
+    var shareProjectData = projectResponse.value?.data?.datas
 
     private fun getResponse(URL: String): ProjectViewModel.ProjectResponse {
         lateinit var projectResponse: ProjectViewModel.ProjectResponse
