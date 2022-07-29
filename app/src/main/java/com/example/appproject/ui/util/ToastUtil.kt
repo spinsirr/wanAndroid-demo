@@ -4,5 +4,5 @@ import android.widget.Toast
 import com.example.appproject.MainApplication
 
 fun String.showToast() {
-    Toast.makeText(MainApplication.context, this, Toast.LENGTH_SHORT)
+    Toast.makeText(MainApplication.context, this, Toast.LENGTH_SHORT).show()
 }
