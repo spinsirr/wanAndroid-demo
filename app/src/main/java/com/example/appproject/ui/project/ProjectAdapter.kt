@@ -1,6 +1,7 @@
 package com.example.appproject.ui.project
 
 import android.app.Activity
+import android.os.IInterface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,9 +17,8 @@ class ProjectAdapter(
     private val projectList: List<ProjectViewModel.Project>,
     private val projectLinkCallback : (String) -> Unit
 ) :
+
     RecyclerView.Adapter<ProjectAdapter.ProjectViewHolder>() {
-
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProjectViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.project_item, parent, false)
         return ProjectViewHolder(view)
@@ -50,5 +50,7 @@ class ProjectAdapter(
         val projectItem: ConstraintLayout = view.findViewById(R.id.project_item_view)
     }
 
-    interface O
+    interface Interface{
+        fun onWork(view :View)
+    }
 }
