@@ -28,6 +28,7 @@ class ProjectFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val projectSwipeRefreshLayout = view.findViewById<SwipeRefreshLayout>(R.id.project_refresh)
         val projectRecyclerView = view.findViewById<RecyclerView>(R.id.project_recycler_view)
+        projectRecyclerView.layoutManager = LinearLayoutManager(requireActivity())
 
 
         //添加观察者
@@ -40,15 +41,14 @@ class ProjectFragment : Fragment() {
                 parentFragmentManager
                     .beginTransaction()
                     .replace(R.id.main_activity_fragment_container, ProjectDetailFragment(it))
-                    .addToBackStack("abc")
+                    .addToBackStack("ProjectFragment")
                     .commit()
             }
-        projectRecyclerView.layoutManager = LinearLayoutManager(requireActivity())
 
         //下拉刷新
         projectSwipeRefreshLayout.setOnRefreshListener {
             projectViewModel.onRefresh()
-            projectRecyclerView.adapter?.notifyDataSetChanged()
+//            projectRecyclerView.adapter?.notifyDataSetChanged()
             projectSwipeRefreshLayout.isRefreshing = false
         }
 
