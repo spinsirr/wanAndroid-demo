@@ -4,14 +4,10 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.appproject.ui.util.showToast
-import com.example.wanandroidapi.NetCallback
 import com.example.wanandroidapi.NetData
 import com.example.wanandroidapi.NetResult
 import com.example.wanandroidapi.repository.ProjectRepository
 import com.google.gson.Gson
-import okhttp3.*
-import java.io.IOException
 
 
 class ProjectViewModel : ViewModel() {
@@ -45,15 +41,28 @@ class ProjectViewModel : ViewModel() {
     )
 
     fun onRefresh() {
-        getResponse()
+        getProjectResponse()
+        getProjectCategory()
         shareProjectData = projectResponse
     }
 
 
-    private fun getResponse() {
+    private fun getProjectCategory(){
+        ProjectRepository.getProjectsCategory(object :NetResult<Any>{
+            override fun onResult(netData: NetData<Any>) {
+                if (netData.errorCode == 0){
+                    Log.d("category", netData.json)
+                }
+            }
+
+        })
+    }
+
+    private fun getProjectResponse() {
         ProjectRepository.getProjectList(1, 294, object : NetResult<Any> {
             override fun onResult(netData: NetData<Any>) {
                 if (netData.errorCode == 0) {
+                    Log.d("spencer",netData.json)
                     projectResponse.postValue(
                         Gson().fromJson(
                             netData.json,
