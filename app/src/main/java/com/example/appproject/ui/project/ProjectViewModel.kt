@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.appproject.ui.util.showToast
 import com.google.gson.Gson
 import okhttp3.*
 import java.io.IOException
@@ -11,9 +12,13 @@ import java.io.IOException
 
 class ProjectViewModel : ViewModel() {
     private val projectResponse = MutableLiveData<ProjectResponse>()
+    private var page: Int
     var shareProjectData: LiveData<ProjectResponse> = projectResponse
+
+
     init {
         onRefresh()
+        page = 0
     }
 
     data class ProjectResponse(
@@ -24,7 +29,7 @@ class ProjectViewModel : ViewModel() {
 
     data class Data(
         val curPage: Int,
-        val datas: List<Project>,
+        val datas: ArrayList<Project>,
         val size: Int
 
     )
@@ -39,10 +44,16 @@ class ProjectViewModel : ViewModel() {
     )
 
     fun onRefresh() {
-        val PRJURL = "https://www.wanandroid.com/project/list/${(1..19).random()}/json?cid=294"
-        Log.d("spencer",PRJURL)
-        getResponse(PRJURL)
+        val projectUrlRefresh = "https://www.wanandroid.com/project/list/1/json?cid=294"
+        Log.d("spencer", projectUrlRefresh)
+        getResponse(projectUrlRefresh)
         shareProjectData = projectResponse
+    }
+
+    fun onLoad(){
+        val projectUrlLoad = "https://www.wanandroid.com/project/list/$page/json?cid=294"
+        Log.d("spencer",projectUrlLoad)
+        getResponse(projectUrlLoad)
     }
 
 
@@ -55,7 +66,7 @@ class ProjectViewModel : ViewModel() {
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
                 e.printStackTrace()
-                Log.d("spencer","Request fail")
+                Log.d("spencer", "Request fail")
             }
 
             override fun onResponse(call: Call, response: Response) {
