@@ -46,7 +46,6 @@ class ProjectAdapter(
                 .replace(R.id.main_activity_fragment_container, ProjectDetailFragment(projectLink))
                 .addToBackStack("abc")
                 .commit()
-
         }
     }
 

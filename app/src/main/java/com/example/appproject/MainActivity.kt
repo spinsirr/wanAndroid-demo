@@ -11,7 +11,7 @@ import com.example.appproject.ui.square.SquareFragment
 class MainActivity : AppCompatActivity() {
     companion object {
         val squareFragment = SquareFragment()
-        val homeFragment =  HomeFragment()
+        val homeFragment = HomeFragment()
         val projectFragment = ProjectFragment()
     }
 
@@ -21,15 +21,15 @@ class MainActivity : AppCompatActivity() {
         onActivityNavigation()
     }
 
-    private fun onActivityNavigation(){
+    private fun onActivityNavigation() {
         onReplace(homeFragment)
-        findViewById<View>(R.id.navi_button_home).setOnClickListener{
+        findViewById<View>(R.id.navi_button_home).setOnClickListener {
             onReplace(homeFragment)
         }
-        findViewById<View>(R.id.navi_button_project).setOnClickListener{
+        findViewById<View>(R.id.navi_button_project).setOnClickListener {
             onReplace(projectFragment)
         }
-        findViewById<View>(R.id.navi_button_square).setOnClickListener{
+        findViewById<View>(R.id.navi_button_square).setOnClickListener {
             onReplace(squareFragment)
         }
     }
@@ -38,6 +38,7 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.main_activity_fragment_container, fragment)
+            .addToBackStack("MainActivity")
             .commit()
     }
 }
