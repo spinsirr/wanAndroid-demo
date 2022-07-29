@@ -33,13 +33,13 @@ class ProjectFragment : Fragment() {
         val projectRecyclerView = view.findViewById<RecyclerView>(R.id.project_recycler_view)
         projectViewModel.shareProjectData.observe(requireActivity(), Observer {
             projectList = it.data.datas
-            projectRecyclerView.adapter = ProjectAdapter(requireActivity(), projectList)
+            val adapter = ProjectAdapter(requireActivity(), projectList, this)
+            projectRecyclerView.adapter = adapter
         })
         projectRecyclerView.layoutManager = LinearLayoutManager(requireActivity())
         projectSwipeRefreshLayout.setOnRefreshListener {
             projectViewModel.onRefresh()
             projectSwipeRefreshLayout.isRefreshing = false
-
         }
 
 

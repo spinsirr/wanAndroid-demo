@@ -8,7 +8,7 @@ import android.webkit.WebView
 import androidx.fragment.app.Fragment
 import com.example.appproject.R
 
-class ProjectDetailFragment : Fragment() {
+class ProjectDetailFragment(val url:String) : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -19,6 +19,7 @@ class ProjectDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val webView = view.findViewById<WebView>(R.id.project_web_view)
+        webView.loadUrl(url)
         super.onViewCreated(view, savedInstanceState)
     }
 
