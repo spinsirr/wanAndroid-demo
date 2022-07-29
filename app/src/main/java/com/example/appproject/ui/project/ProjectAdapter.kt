@@ -30,6 +30,7 @@ class ProjectAdapter(
 
     override fun onBindViewHolder(holder: ProjectViewHolder, position: Int) {
         val project = projectList[position]
+        val projectLink = project.link
         holder.projectTitle.text = project.title
         holder.projectDescribe.text = project.desc
         holder.projectDate.text = project.niceDate
