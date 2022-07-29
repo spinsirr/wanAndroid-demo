@@ -34,8 +34,9 @@ class ProjectFragment : Fragment() {
         //添加观察者
         projectViewModel.shareProjectData.observe(requireActivity()) {
             projectList = it.data.datas
-            //刷新recyclerview
+            projectRecyclerView.adapter?.notifyDataSetChanged()
         }
+
         projectRecyclerView.adapter =
             ProjectAdapter(requireActivity(), projectList) {
                 parentFragmentManager
@@ -51,8 +52,6 @@ class ProjectFragment : Fragment() {
 //            projectRecyclerView.adapter?.notifyDataSetChanged()
             projectSwipeRefreshLayout.isRefreshing = false
         }
-
-
 
         super.onViewCreated(view, savedInstanceState)
 

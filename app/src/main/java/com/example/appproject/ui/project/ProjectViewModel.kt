@@ -54,7 +54,6 @@ class ProjectViewModel : ViewModel() {
         ProjectRepository.getProjectList(1, 294, object : NetResult<Any> {
             override fun onResult(netData: NetData<Any>) {
                 if (netData.errorCode == 0) {
-                    Log.d("spencer",netData.json)
                     projectResponse.postValue(
                         Gson().fromJson(
                             netData.json,
