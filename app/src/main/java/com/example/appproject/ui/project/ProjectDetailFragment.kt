@@ -8,7 +8,7 @@ import android.webkit.WebView
 import androidx.fragment.app.Fragment
 import com.example.appproject.R
 
-class ProjectDetailFragment(val url:String) : Fragment() {
+class ProjectDetailFragment(private val url: String) : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

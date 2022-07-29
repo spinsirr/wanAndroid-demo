@@ -1,12 +1,9 @@
 package com.example.appproject.ui.project
 
 import android.os.Bundle
-import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.view.menu.MenuView
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,7 +13,7 @@ import com.example.appproject.R
 
 class ProjectFragment : Fragment() {
     private val projectViewModel = ProjectViewModel()
-    lateinit var projectList: List<ProjectViewModel.Project>
+    lateinit var projectList: ArrayList<ProjectViewModel.Project>
 
 
     override fun onCreateView(
@@ -31,14 +28,21 @@ class ProjectFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val projectSwipeRefreshLayout = view.findViewById<SwipeRefreshLayout>(R.id.project_refresh)
         val projectRecyclerView = view.findViewById<RecyclerView>(R.id.project_recycler_view)
-        projectViewModel.shareProjectData.observe(requireActivity(), Observer {
+
+
+        //添加观察者
+        projectViewModel.shareProjectData.observe(requireActivity()) {
             projectList = it.data.datas
-            val adapter = ProjectAdapter(requireActivity(), projectList, this)
-            projectRecyclerView.adapter = adapter
-        })
+            //刷新recyclerview
+        }
+        projectRecyclerView.adapter =
+            ProjectAdapter(requireActivity(), projectList, this)
         projectRecyclerView.layoutManager = LinearLayoutManager(requireActivity())
+
+        //下拉刷新
         projectSwipeRefreshLayout.setOnRefreshListener {
             projectViewModel.onRefresh()
+            projectRecyclerView.adapter?.notifyDataSetChanged()
             projectSwipeRefreshLayout.isRefreshing = false
         }
 
