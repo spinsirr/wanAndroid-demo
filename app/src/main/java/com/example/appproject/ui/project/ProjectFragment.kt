@@ -36,7 +36,13 @@ class ProjectFragment : Fragment() {
             //刷新recyclerview
         }
         projectRecyclerView.adapter =
-            ProjectAdapter(requireActivity(), projectList, this)
+            ProjectAdapter(requireActivity(), projectList) {
+                parentFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.main_activity_fragment_container, ProjectDetailFragment(it))
+                    .addToBackStack("abc")
+                    .commit()
+            }
         projectRecyclerView.layoutManager = LinearLayoutManager(requireActivity())
 
         //下拉刷新
