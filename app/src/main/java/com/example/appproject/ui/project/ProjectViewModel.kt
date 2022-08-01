@@ -11,18 +11,11 @@ import com.google.gson.Gson
 
 
 class ProjectViewModel : ViewModel() {
-    private val projectResponse = MutableLiveData<ProjectResponse>()
-    var shareProjectData: LiveData<ProjectResponse>
+    private val projectResponse = MutableLiveData<Data>()
+    private val projectCategory = MutableLiveData<List<String>>()
+    var shareProjectData: LiveData<Data> = projectResponse
+    var shareProjectCategory: LiveData<List<String>> = projectCategory
 
-    init {
-        val project = Project("Error", -1, "Error", "Error", "Error", "Error", "Error")
-        val datas: MutableList<Project> = mutableListOf(project)
-        val data = Data(-1, datas, -1, -1)
-        val initResponse = ProjectResponse(data, -1, "Error")
-        projectResponse.postValue(initResponse)
-        shareProjectData = projectResponse
-        onRefresh()
-    }
 
 
     private fun getProjectCategory() {
@@ -37,27 +30,19 @@ class ProjectViewModel : ViewModel() {
     }
 
     private fun getProjectResponse() {
-        ProjectRepository.getProjectList(1, 294, object : NetResult<Any> {
-            override fun onResult(netData: NetData<Any>) {
+        ProjectRepository.getProjectList(1, 294, object : NetResult<Data> {
+            override fun onResult(netData: NetData<Data>) {
                 if (netData.errorCode == 0) {
                     Log.d("spencer", netData.json)
-                    projectResponse.postValue(
-                        Gson().fromJson(
-                            netData.json,
-                            ProjectResponse::class.java
-                        )
-                    )
+                    netData.data?.let {
+                        projectResponse.postValue(it)
+                    }
+
                 }
             }
 
         })
     }
-
-    data class ProjectResponse(
-        val data: Data ,
-        val errorCode: Int,
-        val errorMsg: String
-    )
 
     data class Data(
         val curPage: Int,
@@ -79,6 +64,5 @@ class ProjectViewModel : ViewModel() {
     fun onRefresh() {
         getProjectResponse()
         getProjectCategory()
-        shareProjectData = projectResponse
     }
 }
