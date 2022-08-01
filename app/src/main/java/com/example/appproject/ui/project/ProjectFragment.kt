@@ -18,6 +18,7 @@ import com.google.android.material.tabs.TabLayout
 
 class ProjectFragment : Fragment() {
     private val projectViewModel = ProjectViewModel()
+    val projectCategoryList = listOf("","","","","","","")
     lateinit var projectList: MutableList<ProjectViewModel.Project>
 
 
@@ -34,7 +35,7 @@ class ProjectFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val projectSwipeRefreshLayout = view.findViewById<SwipeRefreshLayout>(R.id.project_refresh)
         val projectRecyclerView = view.findViewById<RecyclerView>(R.id.project_recycler_view)
-        val projectCategory = view.findViewById<TabLayout>(R.id.project_category_tab_layout)
+        val projectCategoryTabLayout = view.findViewById<TabLayout>(R.id.project_category_tab_layout)
         projectRecyclerView.layoutManager = LinearLayoutManager(requireActivity())
 
 
