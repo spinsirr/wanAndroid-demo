@@ -6,17 +6,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.appproject.R
+import com.google.android.material.tabs.TabLayout
 
 @SuppressLint("NotifyDataSetChanged")
 
 class ProjectFragment : Fragment() {
     private val projectViewModel = ProjectViewModel()
-    lateinit var projectList: ArrayList<ProjectViewModel.Project>
+    lateinit var projectList: MutableList<ProjectViewModel.Project>
 
 
     override fun onCreateView(
@@ -32,6 +34,7 @@ class ProjectFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val projectSwipeRefreshLayout = view.findViewById<SwipeRefreshLayout>(R.id.project_refresh)
         val projectRecyclerView = view.findViewById<RecyclerView>(R.id.project_recycler_view)
+        val projectCategory = view.findViewById<TabLayout>(R.id.project_category_tab_layout)
         projectRecyclerView.layoutManager = LinearLayoutManager(requireActivity())
 
 
@@ -50,12 +53,13 @@ class ProjectFragment : Fragment() {
         projectSwipeRefreshLayout.setOnRefreshListener {
             projectViewModel.onRefresh()
             projectSwipeRefreshLayout.isRefreshing = false
+            projectRecyclerView.adapter?.notifyDataSetChanged()
         }
 
         super.onViewCreated(view, savedInstanceState)
     }
 
-    fun onReplaceFragment(url: String) {
+    private fun onReplaceFragment(url: String) {
         parentFragmentManager
             .beginTransaction()
             .replace(R.id.main_activity_fragment_container, ProjectDetailFragment(url))

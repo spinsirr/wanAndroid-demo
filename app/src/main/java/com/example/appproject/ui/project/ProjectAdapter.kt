@@ -16,9 +16,8 @@ class ProjectAdapter(
     private val activity: Activity,
     private val projectList: List<ProjectViewModel.Project>,
     private val projectLinkCallback : (String) -> Unit
-) :
+) : RecyclerView.Adapter<ProjectAdapter.ProjectViewHolder>() {
 
-    RecyclerView.Adapter<ProjectAdapter.ProjectViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProjectViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.project_item, parent, false)
         return ProjectViewHolder(view)
@@ -32,7 +31,6 @@ class ProjectAdapter(
         holder.projectDescribe.text = project.desc
         holder.projectDate.text = project.niceDate
         holder.projectAuthor.text = project.author
-
         Glide.with(activity).load(project.envelopePic).into(holder.projectPic)
         holder.projectItem.setOnClickListener {
             projectLinkCallback(projectLink)

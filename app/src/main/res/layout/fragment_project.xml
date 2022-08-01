@@ -6,10 +6,20 @@
     android:layout_height="match_parent"
     tools:context=".ui.project.ProjectFragment">
 
+    <com.google.android.material.tabs.TabLayout
+        app:layout_constraintTop_toTopOf="parent"
+        android:id="@+id/project_category_tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+
+    </com.google.android.material.tabs.TabLayout>
+
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        app:layout_constraintTop_toBottomOf="@+id/project_category_tab_layout"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:id="@+id/project_refresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/project_recycler_view"
