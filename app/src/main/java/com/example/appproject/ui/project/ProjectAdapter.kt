@@ -51,8 +51,4 @@ class ProjectAdapter(
         val projectPic: ImageView = view.findViewById(R.id.project_image)
         val projectItem: ConstraintLayout = view.findViewById(R.id.project_item_view)
     }
-
-    interface Interface{
-        fun onWork(view :View)
-    }
 }

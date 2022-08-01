@@ -1,5 +1,6 @@
 package com.example.appproject.ui.project
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.appproject.R
+
+@SuppressLint("NotifyDataSetChanged")
 
 class ProjectFragment : Fragment() {
     private val projectViewModel = ProjectViewModel()
@@ -25,6 +28,7 @@ class ProjectFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_project, container, false)
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val projectSwipeRefreshLayout = view.findViewById<SwipeRefreshLayout>(R.id.project_refresh)
         val projectRecyclerView = view.findViewById<RecyclerView>(R.id.project_recycler_view)
@@ -39,21 +43,23 @@ class ProjectFragment : Fragment() {
 
         projectRecyclerView.adapter =
             ProjectAdapter(requireActivity(), projectList) {
-                parentFragmentManager
-                    .beginTransaction()
-                    .replace(R.id.main_activity_fragment_container, ProjectDetailFragment(it))
-                    .addToBackStack("ProjectFragment")
-                    .commit()
+                onReplaceFragment(it)
             }
 
         //下拉刷新
         projectSwipeRefreshLayout.setOnRefreshListener {
             projectViewModel.onRefresh()
-//            projectRecyclerView.adapter?.notifyDataSetChanged()
             projectSwipeRefreshLayout.isRefreshing = false
         }
 
         super.onViewCreated(view, savedInstanceState)
+    }
 
+    fun onReplaceFragment(url: String) {
+        parentFragmentManager
+            .beginTransaction()
+            .replace(R.id.main_activity_fragment_container, ProjectDetailFragment(url))
+            .addToBackStack(url)
+            .commit()
     }
 }
