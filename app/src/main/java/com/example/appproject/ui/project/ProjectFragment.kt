@@ -2,6 +2,7 @@ package com.example.appproject.ui.project
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,18 +29,9 @@ class ProjectFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         adapter = ProjectAdapter(requireActivity()) {
-
             onReplaceFragment(it)
         }
         return inflater.inflate(R.layout.fragment_project, container, false)
-    }
-
-
-    fun initData() {
-        if (adapter.isEmpty()) {
-            progressbar.visibility = View.VISIBLE
-        }
-        projectViewModel.onRefresh()
     }
 
 
@@ -79,5 +71,13 @@ class ProjectFragment : Fragment() {
             .replace(R.id.main_activity_fragment_container, ProjectDetailFragment(url))
             .addToBackStack(url)
             .commit()
+    }
+
+
+    private fun initData() {
+        if (adapter.isEmpty()) {
+            progressbar.visibility = View.VISIBLE
+        }
+        projectViewModel.onRefresh()
     }
 }
