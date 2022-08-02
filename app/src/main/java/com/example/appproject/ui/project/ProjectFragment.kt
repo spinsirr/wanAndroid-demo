@@ -27,7 +27,10 @@ class ProjectFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        adapter = ProjectAdapter(requireActivity()) {
 
+            onReplaceFragment(it)
+        }
         return inflater.inflate(R.layout.fragment_project, container, false)
     }
 
@@ -43,8 +46,8 @@ class ProjectFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val projectSwipeRefreshLayout = view.findViewById<SwipeRefreshLayout>(R.id.project_refresh)
         val projectRecyclerView = view.findViewById<RecyclerView>(R.id.project_recycler_view)
-        val projectCategoryTabLayout =
-            view.findViewById<TabLayout>(R.id.project_category_tab_layout)
+//        val projectCategoryTabLayout =
+//            view.findViewById<TabLayout>(R.id.project_category_tab_layout)
         projectRecyclerView.layoutManager = LinearLayoutManager(requireActivity())
         progressbar = view.findViewById(R.id.progress)
 
@@ -54,10 +57,7 @@ class ProjectFragment : Fragment() {
             adapter.addData(it.datas)
             projectRecyclerView.adapter?.notifyDataSetChanged()
         }
-        adapter = ProjectAdapter(requireActivity()) {
 
-            onReplaceFragment(it)
-        }
         projectRecyclerView.adapter = adapter
 
 
