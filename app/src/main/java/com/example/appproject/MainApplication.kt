@@ -6,11 +6,6 @@ import java.lang.Math.random
 
 class MainApplication:Application() {
     companion object{
-        lateinit var context: Context
-    }
 
-    override fun onCreate() {
-        context = baseContext
-        super.onCreate()
     }
 }

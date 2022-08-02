@@ -21,7 +21,7 @@ import com.google.android.material.tabs.TabLayout
 class ProjectFragment : Fragment() {
     private val projectViewModel = ProjectViewModel()
     lateinit var adapter: ProjectAdapter
-    private lateinit var progressbar: ProgressBar
+    private lateinit var progressbar: View
 
     override fun onCreateView(
         inflater: LayoutInflater,
