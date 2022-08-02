@@ -14,11 +14,11 @@ import com.example.appproject.ui.square.SquareFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
-    companion object {
-        val squareFragment = SquareFragment()
-        val homeFragment = HomeFragment()
-        val projectFragment = ProjectFragment()
-    }
+
+    private val squareFragment = SquareFragment()
+    private val homeFragment = HomeFragment()
+    private val projectFragment = ProjectFragment()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +38,7 @@ class MainActivity : AppCompatActivity() {
             true
         }
     }
+
 
     private fun onReplace(fragment: Fragment) {
         supportFragmentManager

@@ -23,17 +23,19 @@ class ProjectAdapter(
         projectList.addAll(list)
     }
 
+
     fun isEmpty() : Boolean = projectList.isEmpty()
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProjectViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.project_item, parent, false)
         return ProjectViewHolder(view)
     }
 
+
     override fun onBindViewHolder(holder: ProjectViewHolder, position: Int) {
         val project = projectList[position]
         val projectLink = project.link
-
         holder.projectTitle.text = project.title
         holder.projectDescribe.text = project.desc
         holder.projectDate.text = project.niceDate
@@ -44,9 +46,11 @@ class ProjectAdapter(
         }
     }
 
+
     override fun getItemCount(): Int {
         return projectList.size
     }
+
 
     class ProjectViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val projectTitle: TextView = view.findViewById(R.id.project_title)
